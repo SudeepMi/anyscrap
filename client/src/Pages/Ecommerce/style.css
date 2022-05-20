@@ -1,0 +1,17 @@
+.results__body{
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+}
+
+.results__body-container{
+    display: grid;
+    grid-gap: 1rem;
+    margin-top: 1rem;
+    max-width: 33%;
+    place-content: baseline;
+}
+.product__card{
+    padding: 10px;
+    border: 1px solid #ccc;
+}
