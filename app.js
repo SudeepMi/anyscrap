@@ -33,12 +33,16 @@ app.use("/api", limiter);
 
 
 const homeRouter = require("./routes/homeRoutes");
+const authRouter = require("./routes/authRoutes")
+const apiRoutes = require("./routes/apiRoutes")
 
 app.use("/api/scrap", homeRouter);
+app.use("/api/auth",authRouter)
+app.use("/api/endpoints",apiRoutes)
 
 
 app.all("*", (req, res, next) => {
-  return next(new AppError(`Cant find ${req.originalUrl} on this server.`));
+  return next(new AppError(`can't find ${req.originalUrl} on this server`))
 });
 
 // app.use(globalErrorHandler);

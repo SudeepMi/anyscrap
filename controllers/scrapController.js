@@ -81,7 +81,6 @@ exports.scrapEbay = (async (req, res, next) => {
     });
 
 exports.scrapSnapdeal = (async (req, res, next) => {
-  
       const url = `https://www.snapdeal.com/search?keyword=${req.body.query}`;
       const wikiUrls = [];
       await rp(url)
@@ -96,7 +95,6 @@ exports.scrapSnapdeal = (async (req, res, next) => {
               const price = $(this).find('.product-price').text().split('Rs.')[1];
               if(price){
               const data = {
-
                   imgUrl,
                   link,
                   title,
@@ -126,7 +124,146 @@ exports.scrapSnapdeal = (async (req, res, next) => {
         });
     }
     );
+
+    exports.newsScrap = (async (req, res, next) => {
+      const url = `https://www.nytimes.com`;
+      const wikiUrls = [];
+      await rp(url)
+        .then(function(html){
+          //success!
+          const $ = cheerio.load(html);
+          let index = 0
+          $('.story-wrapper').each(function(i, el){
+              // const imgUrl = $(this).find('img').attr('src');
+              const link = $(this).find('a').attr('href');
+              const title = $(this).find('h3').text();
+              // const price = $(this).find('.product-price').text().split('Rs.')[1];
+              if(link){
+              const data = {
+                  // imgUrl,
+                  link,
+                  title,
+                  // price,
+              }
+              wikiUrls.push(data);
+              index++;
+              }
+              if(index === 3){
+                  return false;
+              }
+          }
+          );
+        })
+        .catch(function(err){
+          //handle error
+          console.log(err);
+        }
+        );
+        res.status(200).json({
+            status: 'success',
+            data: {
+                // 'amazon': req.body.amazon,
+                // 'ebay': req.body.ebay,
+                // 'snapdeal': wikiUrls
+                wikiUrls
+            }
+        });
+    }
+    );
+
+    exports.onlineKhabarScrap = (async (req, res, next) => {
+      const url = `https://www.onlinekhabar.com/`;
+      const wikiUrls = [];
+      await rp(url)
+        .then(function(html){
+          //success!
+          const $ = cheerio.load(html);
+          let index = 0
+          $('.ok-container').each(function(i, el){
+              // const imgUrl = $(this).find('img').attr('src');
+              const link = $(this).find('a').attr('href');
+              const title = $(this).find('h3').text();
+              // const price = $(this).find('.product-price').text().split('Rs.')[1];
+              if(link){
+              const data = {
+                  // imgUrl,
+                  link,
+                  title,
+                  // price,
+              }
+              wikiUrls.push(data);
+              index++;
+              }
+              if(index === 3){
+                  return false;
+              }
+          }
+          );
+        })
+        .catch(function(err){
+          //handle error
+          console.log(err);
+        }
+        );
+        res.status(200).json({
+            status: 'success',
+            data: {
+                // 'amazon': req.body.amazon,
+                // 'ebay': req.body.ebay,
+                // 'snapdeal': wikiUrls
+                wikiUrls
+            }
+        });
+    }
+    );
+  
     
+    exports.bbcScrap = (async (req, res, next) => {
+      const url = `https://www.bbc.com/`;
+      const wikiUrls = [];
+      await rp(url)
+        .then(function(html){
+          //success!
+          const $ = cheerio.load(html);
+          let index = 0
+          $('.media-list').each(function(i, el){
+              // const imgUrl = $(this).find('img').attr('src');
+              const link = $(this).find('a').attr('href');
+              const title = $(this).find('h3').text();
+              // const price = $(this).find('.product-price').text().split('Rs.')[1];
+              if(link){
+              const data = {
+                  // imgUrl,
+                  link,
+                  title,
+                  // price,
+              }
+              wikiUrls.push(data);
+              index++;
+              }
+              if(index === 3){
+                  return false;
+              }
+          }
+          );
+        })
+        .catch(function(err){
+          //handle error
+          console.log(err);
+        }
+        );
+        res.status(200).json({
+            status: 'success',
+            data: {
+                // 'amazon': req.body.amazon,
+                // 'ebay': req.body.ebay,
+                // 'snapdeal': wikiUrls
+                wikiUrls
+            }
+        });
+    }
+    );
+  
     
 
 

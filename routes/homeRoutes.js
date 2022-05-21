@@ -9,8 +9,11 @@ router
     scrapController.scrapAmazon,
     scrapController.scrapEbay,
     scrapController.scrapSnapdeal,
-    
+    scrapController.bbcScrap,
+    scrapController.onlineKhabarScrap
   );
+
+  router.route("/news").get(scrapController.bbcScrap)
 
 // router
 //   .route("/daraz")
