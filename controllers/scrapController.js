@@ -226,14 +226,16 @@ exports.scrapSnapdeal = (async (req, res, next) => {
           //success!
           const $ = cheerio.load(html);
           let index = 0
-          $('.media-list').each(function(i, el){
+          $('.module__content').each(function(i, el){
               // const imgUrl = $(this).find('img').attr('src');
+              // const img = $(this).find("img")
               const link = $(this).find('a').attr('href');
               const title = $(this).find('h3').text();
               // const price = $(this).find('.product-price').text().split('Rs.')[1];
               if(link){
               const data = {
                   // imgUrl,
+                  // img,
                   link,
                   title,
                   // price,

@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./style.css";
 import API from "../../utils/Api";
 import Products from "../../components/Products";
 import AmazonLogo from "../../assets/amazon.png";
 import EbayLogo from "../../assets/ebay.png";
-function Ecommerce() {
+import {Link} from "react-router-dom"
+// import axios from "axios";
+
+function News() {
   const [query, setQuery] = React.useState("");
   const [results, setResults] = React.useState([]);
-  const [items,setItems] = React.useState([{amazon:"",ebay:"",snapdeal:""}])
+  const [news,setNews] = React.useState([])
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -17,23 +20,20 @@ function Ecommerce() {
     });
   };
 
-  const getItems = async () => {
-    const res = await API.post("/scrap")
-    console.log(res.data.data.amazon)
-    setItems(res.data.data.amazon)
-    console.log(items)
+  const getNews = async() => {
+    const news = await API.get("scrap/news")
+    console.log(news.data.data.wikiUrls)
+    setNews(news.data.data.wikiUrls)
   }
 
-  React.useEffect(() => {
-      getItems()
-  })
+  useEffect(() => {
+    getNews()
+  },[])
 
   return (
     <div className="container">
-      <h1>Ecommerce</h1>
-      <p>
-        This tool fetches product information from different ecommerce portal
-      </p>
+      <h1>News</h1>
+      <p>This tool fetches news information from different news portal</p>
       <div className="search__section">
         <input
           type="text"
@@ -54,6 +54,13 @@ function Ecommerce() {
         <div className="results__container">
           <div className="results__header">
             <h1>Results</h1>
+            {news.map((news,i) => {
+              console.log(news)
+              return <div key={i}>
+                <p>{news.title}</p>
+                <Link to={`${news.link}`} style={{textDecoration:"underline"}} >Go to news</Link>
+              </div>
+            })}
           </div>
           <div className="results__body">
             <div className="results__body-container">
@@ -98,4 +105,4 @@ function Ecommerce() {
   );
 }
 
-export default Ecommerce;
+export default News;
