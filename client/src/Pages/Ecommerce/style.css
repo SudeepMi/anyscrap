@@ -15,3 +15,26 @@
     padding: 10px;
     border: 1px solid #ccc;
 }
+.search__section{
+    display: flex;
+    justify-content: center;
+}
+.search__section input{
+    width: 50%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.search__button{
+    width: 20%;
+    margin: 0 9px;
+    border-radius: 5px;
+    outline: 0;
+    border: none;
+    color: aliceblue;
+    background: black;
+}
+.results__header{
+    text-align: center;
+    margin: 20px 0px;
+}

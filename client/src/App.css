@@ -20,10 +20,11 @@ a{
     display: flex;
     line-height: 1;
     font-size: 15px;
+    cursor: pointer;
 }
 .btn_small_brand{
   color: white;
-    background: #FF416C;
+    background: #41ffcc;
     padding: 8px 16px;
     border-radius: 20px;
     display: flex;
@@ -34,9 +35,16 @@ a{
     cursor: pointer;
 }
 .btn_small_brand:hover{
-  background: #FF4B2B;
+  background: #2bffd5;
 }
 
 .slick-prev:before, .slick-next:before {
-  color: #ff416c;
+  color: #41ffe6;
+}
+
+.textCenter{
+  text-align: center;
+}
+.m__5{
+  margin: 15px;
 }

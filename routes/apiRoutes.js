@@ -1,10 +1,14 @@
 const express = require("express");
 
 const router = express.Router();
-const {createAPI,updateAPI,getAPIById,getAPIs,deleteAPI} = require("../controllers/apiController");
+const {createAPI,updateAPI,getAPIById,getAPIs,deleteAPI, getAPIByUserId, useAPI, createAPIMarketPlace, getMarketPlaceAPIs} = require("../controllers/apiController");
 const { protect, admin } = require("../middleware/authMiddleware");
 
 router.route("/").post(protect,admin,createAPI).get(getAPIs);
+router.route("/myapi").get(protect,getAPIByUserId);
+router.route("/use").post(protect,useAPI);
+router.route("/marketplace").post(protect,createAPIMarketPlace).get(getMarketPlaceAPIs);
+
 // router.put("/update-notification-token", protect, updateUser);
 // router.post("/login", authUser);
 

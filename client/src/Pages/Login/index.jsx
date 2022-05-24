@@ -16,7 +16,7 @@ const history = useNavigate();
     e.preventDefault();
     setLoading(true);
     const intToast = toast.loading("Registering")
-      API.post("/users/", {
+      API.post("/auth/", {
         username: Username,
         password: Password,
         email: Email,
@@ -50,7 +50,7 @@ const history = useNavigate();
           e.preventDefault();
             setLoading(true);
             const intToast = toast.loading("Logging in")
-            API.post("/users/login", {
+            API.post("auth/login", {
                 email: Email,
                 password: Password,
             }).then(async(res) => {
@@ -158,7 +158,7 @@ const history = useNavigate();
               </button>
             </div>
             <div className="overlay-panel overlay-right">
-              <h1>BLOODBANK</h1>
+              <h1>ANYSCRAP</h1>
               <p>Enter your personal details and start journey with us</p>
               <button
                 className="ghost"

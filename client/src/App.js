@@ -7,6 +7,7 @@ import Home from './Pages/Home';
 import 'react-toastify/dist/ReactToastify.css';
 import User from './utils/User';
 import Dashboard from './Pages/Dashboard';
+import Marketplace from './Pages/Marketplace';
 
 const Ecommerce = React.lazy(() => import('./Pages/Ecommerce'));
 const News = React.lazy(() => import("./Pages/News"))
@@ -27,6 +28,7 @@ function App() {
         <Route exact path="/" element={<Home />} />
         <Route exact path="/ecommerce" element={<Ecommerce />} />
         <Route exact path='/news' element={<News />}/>
+        <Route exact path='/marketplace' element={<Marketplace />}/>
         <Route path="/login" element={<Login />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />

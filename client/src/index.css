@@ -29,3 +29,6 @@ code {
 .col-8{
   min-width: 75%;
 }
+button{
+  cursor: pointer;
+}

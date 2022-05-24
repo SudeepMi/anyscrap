@@ -38,8 +38,11 @@ await rp(url)
     //handle error
     console.log(err);
   });
-   req.body.amazon = wikiUrls;
-    next();
+    res.status(200).json({
+        success: true,
+        error: "",
+        data: wikiUrls,
+    });
 });
 
 
@@ -76,8 +79,11 @@ exports.scrapEbay = (async (req, res, next) => {
         //handle error
         console.log(err);
       });
-        req.body.ebay = wikiUrls;
-        next();
+        res.status(200).json({
+            success: true,
+            error: "",
+            data: wikiUrls,
+        });
     });
 
 exports.scrapSnapdeal = (async (req, res, next) => {
@@ -116,11 +122,7 @@ exports.scrapSnapdeal = (async (req, res, next) => {
         );
         res.status(200).json({
             status: 'success',
-            data: {
-                'amazon': req.body.amazon,
-                'ebay': req.body.ebay,
-                'snapdeal': wikiUrls
-            }
+            data: wikiUrls
         });
     }
     );
@@ -160,12 +162,7 @@ exports.scrapSnapdeal = (async (req, res, next) => {
         );
         res.status(200).json({
             status: 'success',
-            data: {
-                'bbc': req.body.bbc,
-                'nytimes': wikiUrls,
-                'ok': req.body.onlineKhabar,
-                'time': Date.now()
-            }
+            data:  wikiUrls,
         });
     }
     );
@@ -203,8 +200,11 @@ exports.scrapSnapdeal = (async (req, res, next) => {
           console.log(err);
         }
         );
-        req.body.onlineKhabar = wikiUrls;
-        next();
+        res.status(200).json({
+            status: 'success',
+            data:  wikiUrls,
+        });
+
     }
     );
   
@@ -228,7 +228,7 @@ exports.scrapSnapdeal = (async (req, res, next) => {
                   // imgUrl,
                   img,
                   link: "https://www.bbc.com" + link,
-                  title,
+                  title : title.trim(),
                   // price,
               }
               wikiUrls.push(data);
@@ -245,10 +245,13 @@ exports.scrapSnapdeal = (async (req, res, next) => {
           console.log(err);
         }
         );
-        req.body.bbc = wikiUrls;
-        next();
+        res.status(200).json({
+            status: 'success',
+            data:  wikiUrls,
+        });
     }
     );
+    
   
     
 

@@ -2,7 +2,7 @@ const mongoose = require( 'mongoose' );
 // const bcrypt = require( 'bcryptjs');
 
 const apiSchema = mongoose.Schema({
-    apiName: {
+    name: {
       type: String,
       required: true,
     },
@@ -13,11 +13,6 @@ const apiSchema = mongoose.Schema({
     endpoint: {
       type: String,
       required: true,
-    },
-    method: {
-      type: String,
-      required: true,
-      default: "GET",
     },
   },
   {
