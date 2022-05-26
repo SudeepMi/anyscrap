@@ -36,11 +36,13 @@ const homeRouter = require("./routes/homeRoutes");
 const authRouter = require("./routes/authRoutes")
 const apiRoutes = require("./routes/apiRoutes")
 const publicRouter = require("./routes/publicRoutes")
+const sastoRouter = require("./routes/scrapPetFood")
 
 app.use("/api/scrap", homeRouter);
 app.use("/api/auth",authRouter)
 app.use("/api/endpoints",apiRoutes)
 app.use("/api/public",publicRouter)
+app.use("/api/petfood",sastoRouter)
 
 
 app.all("*", (req, res, next) => {

@@ -2,7 +2,7 @@ const asyncHandler = require("express-async-handler");
 const crypto = require("crypto");
 const API = require("../model/apiList");
 const Developer = require("../model/Developer");
-const Marketplace = require("../model/Marketplace");
+const Marketplace = require("../model/MarketPlace");
 
 // @desc    Creates a new event event
 // @route   POST /api/events
