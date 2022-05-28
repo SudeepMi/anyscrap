@@ -9,7 +9,7 @@ function Navbar() {
     window.location.reload()
   }
   return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav className="navbar navbar-expand-lg navbar-dark">
             <Link className="navbar_brand" to="/">ANYSCRAP</Link>
             <Link className='navbar_links' to="#">About Project</Link>
             <Link className='navbar_links' to="/ecommerce">Shopping</Link>

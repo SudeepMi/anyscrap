@@ -38,6 +38,8 @@ const apiRoutes = require("./routes/apiRoutes")
 const publicRouter = require("./routes/publicRoutes")
 const sastoRouter = require("./routes/scrapPetFood")
 
+app.use("/static", express.static(path.join(__dirname, "static")));
+
 app.use("/api/scrap", homeRouter);
 app.use("/api/auth",authRouter)
 app.use("/api/endpoints",apiRoutes)

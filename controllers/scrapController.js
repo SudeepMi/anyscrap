@@ -2,6 +2,11 @@ const catchAsync = require("../utils/catchAsync");
 const rp = require("request-promise");
 const cheerio = require("cheerio");
 const bodyParser = require("body-parser");
+const fs = require('fs');
+const https = require('https');
+const AdmZip = require('adm-zip');
+const xl = require('excel4node');
+
 
 exports.scrapAmazon = async (req, res, next) => {
   const url = `https://www.amazon.com/s?k=${req.body.query}`;
@@ -251,14 +256,14 @@ exports.sastoDeal = async (req, res, next) => {
           const data = {
             // imgUrl,
             img,
-            link: "https://www.bbc.com" + link,
+            link: link,
             title,
             // price,
           };
           wikiUrls.push(data);
           index++;
         }
-        if (index === 3) {
+        if (index === 10) {
           return false;
         }
       });
@@ -267,6 +272,214 @@ exports.sastoDeal = async (req, res, next) => {
       //handle error
       console.log(err);
     });
-  req.body.bbc = wikiUrls;
-  next();
+  return res.status(200).json({
+    status: "success",
+    data: {
+      wikiUrls
+    },
+  });
 };
+
+exports.scrapUrl = async (req, res, next) => {
+
+  console.log(req.body);
+  const url = req.body.scrap_url;
+  const scrap_option = req.body.scrap_option;
+  const _folder = Math.random().toString(36).slice(2, 7);
+  try {
+    await rp(url)
+      .then(async function (html) {
+        //success!
+        const $ = cheerio.load(html);
+        const img_urls = []
+       
+        // console.log(img_urls);
+        if (!fs.existsSync(`./static/${_folder}`)) {
+          fs.mkdirSync(`./static/${_folder}`);
+        }
+        
+        if(scrap_option.image){
+          $("img").each(function (i, el) {
+            const imgUrl = $(this).attr('src');
+            console.log(imgUrl);
+            if (imgUrl) {
+                imgUrl.replace('http://', 'https://');
+                if (imgUrl.startsWith('https://')) {
+                  img_urls.push(imgUrl);
+                } else {
+                  let domain = (new URL(url));
+                  img_urls.push(`https://${domain.hostname}/${imgUrl}`);
+                }
+              }
+            });
+            console.log('scraping image');
+            if (img_urls.length > 0) {
+            const dir = `./static/${_folder}/images`;
+            if (!fs.existsSync(dir)) {
+              fs.mkdirSync(dir);
+            }
+           await downloadFile(img_urls, dir).then(res => {
+            return res;
+          });
+        }
+        }
+        let urls = [];
+        if(scrap_option.link){
+          $("a").each(function (i, el) {
+            const url = $(this).attr('href');
+            const title = $(this).text().trim();
+            console.log(url, title);
+            if (url && title) {
+              urls.push({
+                url,
+                title,
+              });
+              }
+            });
+            console.log('scraping links');
+            if (urls.length > 0) {
+            const dir = `./static/${_folder}/links`;
+            if (!fs.existsSync(dir)) {
+              fs.mkdirSync(dir);
+            }
+           await makeJSONfile(urls, dir).then(res => {
+            return res;
+          });
+        }
+        }
+        let table = [];
+        if(scrap_option.table){
+          $("table").each(function (i, el) {
+            const keys = $(this).find('th').map(function (i, el) {
+              return $(this).text().trim();
+            }).get();
+            const values = $(this).find('td').map(function (i, el) {
+              return $(this).text().trim();
+            }).get();
+            // const title = $(this).text().trim();
+            let data = {
+              keys,
+              values,
+            };
+            table.push(data);
+            });
+            if (table.length > 0) {
+              const __final = [];
+              table.map(item => {
+                const keys = item.keys;
+                const values = item.values;
+                let data = {};
+                values.forEach((key, index) => {
+                  data[keys[index%(keys.length)]] = values[index];
+                  if(index%(keys.length) === keys.length-1){
+                    __final.push(data);
+                    data = {};
+                  }
+                });
+              });
+              
+            
+            const dir = `./static/${_folder}/tables`;
+            if (!fs.existsSync(dir)) {
+              fs.mkdirSync(dir);
+            }
+           await makeJSONfile(__final, dir).then(res => {
+            return res;
+          });
+
+          const wb = new xl.Workbook();
+          const ws = wb.addWorksheet('anyscrap-'+_folder);
+          const headingColumnNames = Object.keys(__final[0]);
+         //Write Column Title in Excel file
+let headingColumnIndex = 1;
+headingColumnNames.forEach(heading => {
+    ws.cell(1, headingColumnIndex++)
+        .string(heading)
+}); 
+//Write JSON data to Excel file
+let dataIndex = 2;
+__final.forEach(data => {
+
+    let dataColumnIndex = 1;
+    headingColumnNames.forEach(heading => {
+        ws.cell(dataIndex, dataColumnIndex++)
+            .string(data[heading])
+});
+dataIndex++;
+});
+//Save Excel file
+          wb.write(`./static/${_folder}/tables/anyscrap-${_folder}.xlsx`);
+        }
+
+        }
+
+   
+
+      })
+      .catch(function (err) {
+        //handle error
+        console.log(err);
+      });
+    return res.status(200).json({
+      status: "success",
+      data: {
+        dir: `/static/${_folder}/`,
+      },
+    });
+  }
+  catch (err) {
+    console.log(err);
+    return res.status(400).json({
+      status: "false",
+      data: {
+        "error": err
+      },
+    });
+  }
+
+}
+
+
+
+
+const downloadFile = async (img_urls, dir) => {
+ img_urls.forEach((img_url, index) => {
+    https.get(img_url, (res) => {
+      // Image will be stored at this path
+      const fileName = `${dir}/${Math.random().toString(36).slice(2, 7)}.jpg`;
+      const filePath =  fs.createWriteStream(fileName);
+       res.pipe(filePath);
+       filePath.on('finish', () => {
+        filePath.close();
+      })
+    })
+    if (index === img_urls.length - 1) {
+      return true;
+    }
+  });
+  return true;
+}
+
+exports.makeZip = async (req, res, next) => {
+  const folder =req.params.id;
+  const dir = `./static/${folder}`;
+  const zipFile = `./static/anyscrap-${folder}.zip`;
+  const zip = new AdmZip();
+  zip.addLocalFolder(dir);
+  zip.writeZip(zipFile);
+  const data = zip.toBuffer();
+  // fs.unlinkSync(dir);
+  return res.status(200).json({ 
+    downloadUrl: `${req.protocol}://${req.get("host")}/static/anyscrap-${folder}.zip` 
+  })
+}
+  // console.log(folder);
+
+const makeJSONfile = async (data, dir) => {
+  fs.appendFileSync(`${dir}/data.json`, JSON.stringify(data),{
+    encoding: 'utf8',
+    flag: 'a'
+  });
+  return true;
+}
+
