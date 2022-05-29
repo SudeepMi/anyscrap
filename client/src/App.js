@@ -8,8 +8,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import User from './utils/User';
 import Dashboard from './Pages/Dashboard';
 import Marketplace from './Pages/Marketplace';
-import { contentSecurityPolicy } from 'helmet';
-
 const Ecommerce = React.lazy(() => import('./Pages/Ecommerce'));
 const News = React.lazy(() => import("./Pages/News"))
 
