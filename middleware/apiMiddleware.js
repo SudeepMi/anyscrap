@@ -12,7 +12,7 @@ const checkKey = asyncHandler(async (req, res, next) => {
   
       token = req.headers['x-api-key'];
       const api = await Developer.findOne({ api_key: token }).populate("api_id");
-      if(api && api.api_id.endpoint === req.originalUrl){
+      if(api && api.api_id.endpoint.split("?")[0] === req.protocol+"://"+req.get("host")+req.originalUrl.split("?")[0]){
         req.api_key = token;
       next();
       }else{

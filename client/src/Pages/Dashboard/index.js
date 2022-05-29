@@ -67,9 +67,9 @@ function Dashboard() {
   return (
     <div className='container'>
         <div className='row'>
-            {/* <div className='col-4'>
+            <div className='col-12'>
                 <Sidebar user={user} />
-            </div> */}
+            </div>
             <div className='row mt-3'>
               <div className='col-lg-7'>
               {api.length > 0 &&  <h3>Your APIS</h3>}
@@ -95,7 +95,7 @@ function Dashboard() {
                }
                </div>
              
-               <h2>All APIs</h2>
+               {allApi.length > 0 &&   <h2>All APIs</h2> }
                 <div className='row'>
 
 {

@@ -62,7 +62,7 @@ function Home() {
         <div className="container position-relative">
           <div className="row justify-content-center">
             <div className="col-xl-6">
-              <div className="text-center text-white my-large w-75">
+              <div className="text-center text-white my-large ">
                 <h1 className="mb-5">Scrap Any Website by URL</h1>
                 <span className="text-dark text-bold font-monospace my-1">
                   Provide the URL of the website you want to scrap and we will

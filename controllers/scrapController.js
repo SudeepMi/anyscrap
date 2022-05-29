@@ -42,6 +42,12 @@ exports.scrapAmazon = async (req, res, next) => {
       console.log(err);
     });
   req.body.amazon = wikiUrls;
+  const _folder = Math.random().toString(36).slice(2, 7);
+  if (!fs.existsSync(`./static`)) {
+    fs.mkdirSync(`./static`);
+  }
+  const dir = `./static/${_folder}-amazon`;
+  __makeJSONfile(wikiUrls,dir);
   next();
 };
 
@@ -78,6 +84,12 @@ exports.scrapEbay = async (req, res, next) => {
       console.log(err);
     });
   req.body.ebay = wikiUrls;
+  const _folder = Math.random().toString(36).slice(2, 7);
+  if (!fs.existsSync(`./static`)) {
+    fs.mkdirSync(`./static`);
+  }
+  const dir = `./static/${_folder}-ebay`;
+  __makeJSONfile(wikiUrls,dir);
   next();
 };
 
@@ -113,6 +125,13 @@ exports.scrapSnapdeal = async (req, res, next) => {
       //handle error
       console.log(err);
     });
+    const _folder = Math.random().toString(36).slice(2, 7);
+    if (!fs.existsSync(`./static`)) {
+      fs.mkdirSync(`./static`);
+    }
+    const dir = `./static/${_folder}-bbc`;
+    __makeJSONfile(wikiUrls,dir);
+
   res.status(200).json({
     status: "success",
     data: {
@@ -145,7 +164,7 @@ exports.newsScrap = async (req, res, next) => {
           wikiUrls.push(data);
           index++;
         }
-        if (index === 3) {
+        if (index === 6) {
           return false;
         }
       });
@@ -154,6 +173,14 @@ exports.newsScrap = async (req, res, next) => {
       //handle error
       console.log(err);
     });
+
+    const _folder = Math.random().toString(36).slice(2, 7);
+    if (!fs.existsSync(`./static`)) {
+      fs.mkdirSync(`./static`);
+    }
+    const dir = `./static/${_folder}-nyt`;
+    __makeJSONfile(wikiUrls,dir);
+
   res.status(200).json({
     status: "success",
     data: {
@@ -187,7 +214,7 @@ exports.onlineKhabarScrap = async (req, res, next) => {
           wikiUrls.push(data);
           index++;
         }
-        if (index === 3) {
+        if (index === 6) {
           return false;
         }
       });
@@ -197,6 +224,12 @@ exports.onlineKhabarScrap = async (req, res, next) => {
       console.log(err);
     });
   req.body.onlineKhabar = wikiUrls;
+  const _folder = Math.random().toString(36).slice(2, 7);
+  if (!fs.existsSync(`./static`)) {
+    fs.mkdirSync(`./static`);
+  }
+  const dir = `./static/${_folder}-ok`;
+  __makeJSONfile(wikiUrls,dir);
   next();
 };
 
@@ -225,7 +258,7 @@ exports.bbcScrap = async (req, res, next) => {
           wikiUrls.push(data);
           index++;
         }
-        if (index === 3) {
+        if (index === 6) {
           return false;
         }
       });
@@ -234,6 +267,14 @@ exports.bbcScrap = async (req, res, next) => {
       //handle error
       console.log(err);
     });
+    const _folder = Math.random().toString(36).slice(2, 7);
+    if (!fs.existsSync(`./static`)) {
+      fs.mkdirSync(`./static`);
+    }
+    const dir = `./static/${_folder}-bbc`;
+    __makeJSONfile(wikiUrls,dir);
+   
+  
   req.body.bbc = wikiUrls;
   next();
 };
@@ -482,6 +523,14 @@ const makeJSONfile = async (data, dir) => {
   fs.appendFileSync(`${dir}/data.json`, JSON.stringify(data),{
     encoding: 'utf8',
     flag: 'a'
+  });
+  return true;
+}
+
+const __makeJSONfile = async (data, dir) => {
+  fs.appendFileSync(`${dir}.json`, JSON.stringify(data),{
+    encoding: 'utf8',
+    flag: 'w'
   });
   return true;
 }
