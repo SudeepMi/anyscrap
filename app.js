@@ -47,9 +47,16 @@ app.use("/api/public",publicRouter)
 app.use("/api/petfood",sastoRouter)
 
 
-app.all("*", (req, res, next) => {
-  return next(new AppError(`can't find ${req.originalUrl} on this server`))
-});
+// app.all("*", (req, res, next) => {
+//   return next(new AppError(`can't find ${req.originalUrl} on this server`))
+// });
+
+if(process.env.NODE_ENV==="production"){
+  app.use(express.static('client/build'));
+  app.get('*',(req, res)=>{
+    res.sendFile(path.resolve(__dirname,'client','build','index.html'))
+  })
+}
 
 // app.use(globalErrorHandler);
 
