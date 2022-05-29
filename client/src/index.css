@@ -18,10 +18,10 @@ code {
   padding: 5px 0;
 }
 .row{
-  display: flex;
+  /* display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: center;
+  align-items: center; */
 }
 .col-4{
   min-width: 25%;
