@@ -15,7 +15,7 @@ function Ecommerce() {
   const handleSearch = async (e) => {
     e.preventDefault();
     setLoading(true);
-    await API.post("/scrap", { query }).then((res) => {
+    await API.post("/scrap/all-ecommerce", { query }).then((res) => {
       setResults(res.data.data);
       setLoading(false);
     });
