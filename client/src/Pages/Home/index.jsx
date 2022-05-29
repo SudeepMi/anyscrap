@@ -62,7 +62,7 @@ function Home() {
         <div className="container position-relative">
           <div className="row justify-content-center">
             <div className="col-xl-6">
-              <div className="text-center text-white my-large">
+              <div className="text-center text-white my-large w-75">
                 <h1 className="mb-5">Scrap Any Website by URL</h1>
                 <span className="text-dark text-bold font-monospace my-1">
                   Provide the URL of the website you want to scrap and we will
@@ -92,8 +92,8 @@ function Home() {
                     </div>
                   </div>
                   <div className="row">
-                    <div className="col-12 d-flex mt-3">
-                      <div className="form-check mx-5">
+                    <div className="col-12 d-flex flex-wrap mt-3">
+                      <div className="form-check mx-sm-5">
                         <input
                           className="form-check-input"
                           type="checkbox"
