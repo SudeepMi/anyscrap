@@ -34,7 +34,7 @@ function News() {
               <img src={bbcLogo} alt="" className="provider__logo" />
             <div className="dFlex JustifySpace">
             {news.bbc && news.bbc.map((news,i) => {
-              return <div key={i} className="card">
+              return <div key={i} className="card p-2">
                 <p>{news.title}</p>
                 <img src={news.img} alt={news.title} width={"100%"} />
                 <a href={`${news.link}`}  >Go to news</a>
@@ -47,7 +47,7 @@ function News() {
               <img src={nytLogo} alt="" className="provider__logo"/>
             <div className="dFlex JustifySpace">
             {news.nytimes && news.nytimes.map((news,i) => {
-              return <div key={i} className="card">
+              return <div key={i} className="card p-2">
                 <p>{news.title}</p>
                 <img src={news.img} alt={news.title} width={"100%"} />
                 <a href={`${news.link}`}  >Go to news</a>
@@ -60,7 +60,7 @@ function News() {
               <img src={okLogo} alt="" className="provider__logo"/>
             <div className="dFlex JustifySpace">
             {news.ok && news.ok.map((news,i) => {
-              return <div key={i} className="card">
+              return <div key={i} className="card p-2">
                 <p>{news.title}</p>
                 <img src={news.img} alt={news.title} width={"100%"} />
                 <a href={`${news.link}`}>Go to news</a>

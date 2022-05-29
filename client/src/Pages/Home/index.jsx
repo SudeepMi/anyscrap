@@ -51,7 +51,7 @@ function Home() {
         table: false,
         link: false,
       });
-      window.open(res.data.downloadUrl,'Download');
+      window.location.href = res.data.downloadUrl;
     });
   };
     
