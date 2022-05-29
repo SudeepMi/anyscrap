@@ -286,6 +286,9 @@ exports.scrapUrl = async (req, res, next) => {
   const url = req.body.scrap_url;
   const scrap_option = req.body.scrap_option;
   const _folder = Math.random().toString(36).slice(2, 7);
+  if (!fs.existsSync(`./static`)) {
+    fs.mkdirSync(`./static`);
+  }
   try {
     await rp(url)
       .then(async function (html) {
