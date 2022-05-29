@@ -10,22 +10,32 @@ function Marketplace() {
     })
     }, [])
   return (
-    <div className='container'>
+    <div className='container mt-5'>
+        <p
+        className='text-center'
+        >This section is PUBLIC platform for sharing free APIs</p>
+        <div className='row'>
         {
            api &&  api.map(api => {
-               { console.log(api);}
                 return (
+                    <div className='col-md-6' key={api._id}>
                     <div className="card" key={api._id}>
-                        <h1>{api.name}</h1>
+                        <div className='card-header'>
+                            <h5 className="card-title">{api.name}</h5>
+                        </div>
+                        <div className="card-body">
                         <p>{api.description}</p>
                         <p>{api.endpoint}</p>
                         <p>Added By : {
                             api.userid.username
                             }</p>
                     </div>
+                    </div>
+                    </div>
                 )
             })
         }
+        </div>
     </div>
   )
 }

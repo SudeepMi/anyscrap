@@ -30,11 +30,11 @@ function News() {
           {  loading ? <div className="loader"><Loading /></div> :
           <div className="results__body">
             <span className="scrap__time">Last Scrap : { Date(news.time).toString()}</span>
-            <div className="result__body-container">
+            <div className="result__body-container my-5">
               <img src={bbcLogo} alt="" className="provider__logo" />
             <div className="dFlex JustifySpace">
             {news.bbc && news.bbc.map((news,i) => {
-              return <div key={i} className="card">
+              return <div key={i} className="card p-2">
                 <p>{news.title}</p>
                 <img src={news.img} alt={news.title} width={"100%"} />
                 <a href={`${news.link}`}  >Go to news</a>
@@ -43,11 +43,11 @@ function News() {
             </div>
             </div>
 
-            <div className="result__body-container">
+            <div className="result__body-container my-5">
               <img src={nytLogo} alt="" className="provider__logo"/>
             <div className="dFlex JustifySpace">
             {news.nytimes && news.nytimes.map((news,i) => {
-              return <div key={i} className="card">
+              return <div key={i} className="card p-2">
                 <p>{news.title}</p>
                 <img src={news.img} alt={news.title} width={"100%"} />
                 <a href={`${news.link}`}  >Go to news</a>
@@ -56,11 +56,11 @@ function News() {
             </div>
             </div>
 
-            <div className="result__body-container">
+            <div className="result__body-container my-5">
               <img src={okLogo} alt="" className="provider__logo"/>
             <div className="dFlex JustifySpace">
             {news.ok && news.ok.map((news,i) => {
-              return <div key={i} className="card">
+              return <div key={i} className="card p-2">
                 <p>{news.title}</p>
                 <img src={news.img} alt={news.title} width={"100%"} />
                 <a href={`${news.link}`}>Go to news</a>

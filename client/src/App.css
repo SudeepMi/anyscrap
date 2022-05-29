@@ -48,3 +48,6 @@ a{
 .m__5{
   margin: 15px;
 }
+.card-header{
+  background: linear-gradient(45deg, #41ffccdb, #e98080cc) !important;
+}

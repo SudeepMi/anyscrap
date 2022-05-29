@@ -17,6 +17,9 @@ router
     scrapController.newsScrap
   );
 
+  router.route("/scrap-url").post(scrapController.scrapUrl);
+  router.get("/download/static/:id", scrapController.makeZip);
+
 // router
 //   .route("/daraz")
 //   .get(
