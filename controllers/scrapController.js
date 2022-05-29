@@ -473,7 +473,7 @@ exports.makeZip = async (req, res, next) => {
   const data = zip.toBuffer();
   // fs.unlinkSync(dir);
   return res.status(200).json({ 
-    downloadUrl: `${req.protocol}://${req.get("host")}/static/anyscrap-${folder}.zip` 
+    downloadUrl: `https://${req.get("host")}/static/anyscrap-${folder}.zip` 
   })
 }
   // console.log(folder);
